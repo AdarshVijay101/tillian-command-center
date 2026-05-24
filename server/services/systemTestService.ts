@@ -1,4 +1,4 @@
-import { getDbCounts } from '../db/schema';
+﻿import { getDbCounts } from '../db/schema';
 import { getDbStatus } from '../db/db';
 import { ALLOWED_ROUTINE_MODES, OPENCLAW_GATEWAY_URL } from '../config';
 import { getExpectedReminderTasks, auditReminderScheduledTasks } from './schedulerAuditService';
@@ -136,7 +136,7 @@ export const getSystemReport = async () => {
 export const getSystemReportMarkdown = async () => {
   const report = await getSystemReport();
   
-  return `# Tillian Command Center - Diagnostic Report
+  return `# Local AI Command Center - Diagnostic Report
 **Timestamp:** ${report.timestamp}
 **Version:** ${report.appVersion}
 **Backend:** ${report.backendHost}
@@ -162,3 +162,4 @@ ${report.errors.length > 0 ? report.errors.map(e => `- [ERROR] ${e}`).join('\n')
 ${report.warnings.length > 0 ? report.warnings.map(w => `- [WARN] ${w}`).join('\n') : '- No active warnings'}
 `;
 };
+

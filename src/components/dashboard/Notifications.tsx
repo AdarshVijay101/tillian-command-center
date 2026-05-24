@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { api } from '../../services/api';
 import { Bell, Activity, CheckCircle2, XCircle, AlertTriangle, ShieldCheck, Clock, Hash, Smartphone, HelpCircle } from 'lucide-react';
@@ -26,8 +26,8 @@ export const Notifications = () => {
 
   useEffect(() => {
     fetchData();
-    window.addEventListener('tillian:refresh', fetchData);
-    return () => window.removeEventListener('tillian:refresh', fetchData);
+    window.addEventListener('Local AI:refresh', fetchData);
+    return () => window.removeEventListener('Local AI:refresh', fetchData);
   }, [isDemoMode]);
 
   if (loading) {
@@ -182,3 +182,4 @@ export const Notifications = () => {
     </div>
   );
 };
+

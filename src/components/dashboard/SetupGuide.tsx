@@ -1,4 +1,4 @@
-import { GlassCard } from '../ui/GlassCard';
+﻿import { GlassCard } from '../ui/GlassCard';
 import { Terminal, Server, CheckCircle2, AlertCircle, Lock, Database, Settings } from 'lucide-react';
 import { useHealth, useValidation } from '../../hooks/useData';
 import { api } from '../../services/api';
@@ -223,7 +223,7 @@ export const SetupGuide = ({ onRunAction }: { onRunAction?: (name: string, apiCa
             </div>
             <div className="space-y-2">
               <h3 className="font-semibold text-white/80">3. Understand Mapping</h3>
-              <p className="text-sm text-white/50">The Scheduler automatically maps triggering times to Tillian's Routine Protocol Engine, ensuring Telegram reminders are intelligent and protocol-aware.</p>
+              <p className="text-sm text-white/50">The Scheduler automatically maps triggering times to Local AI's Routine Protocol Engine, ensuring Telegram reminders are intelligent and protocol-aware.</p>
             </div>
           </div>
         </GlassCard>
@@ -237,25 +237,25 @@ export const SetupGuide = ({ onRunAction }: { onRunAction?: (name: string, apiCa
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="space-y-2">
-                <h3 className="font-semibold text-white/80">Start Tillian Safely</h3>
+                <h3 className="font-semibold text-white/80">Start Local AI Safely</h3>
                 <code className="block p-3 bg-black/40 border border-white/10 rounded text-xs text-cyan-300 break-all select-all">
-                  C:\Users\kadar\OpenClawAutomation\Start-Tillian-Command-Center.ps1
+                  C:\Users\kadar\OpenClawAutomation\Start-Local AI-Command-Center.ps1
                 </code>
                 <p className="text-xs text-white/50">Checks ports and Node before launching.</p>
               </div>
               <div className="space-y-2">
                 <h3 className="font-semibold text-white/80">Stop Duplicate Dev Servers</h3>
                 <code className="block p-3 bg-black/40 border border-white/10 rounded text-xs text-cyan-300 break-all select-all">
-                  C:\Users\kadar\OpenClawAutomation\Stop-Tillian-Duplicate-DevServers.ps1
+                  C:\Users\kadar\OpenClawAutomation\Stop-Local AI-Duplicate-DevServers.ps1
                 </code>
-                <p className="text-xs text-white/50">Safely kills conflicting Node instances or locked Tillian ports.</p>
+                <p className="text-xs text-white/50">Safely kills conflicting Node instances or locked Local AI ports.</p>
               </div>
             </div>
             <div className="space-y-4">
               <div className="space-y-2">
                 <h3 className="font-semibold text-white/80">Test System Reliability</h3>
                 <code className="block p-3 bg-black/40 border border-white/10 rounded text-xs text-cyan-300 break-all select-all">
-                  C:\Users\kadar\OpenClawAutomation\Test-Tillian-System.ps1
+                  C:\Users\kadar\OpenClawAutomation\Test-Local AI-System.ps1
                 </code>
                 <p className="text-xs text-white/50">Runs a CLI diagnostic check over all vital endpoints.</p>
               </div>
@@ -278,7 +278,7 @@ export const SetupGuide = ({ onRunAction }: { onRunAction?: (name: string, apiCa
           </h2>
           <div className="space-y-4">
             <p className="text-sm text-white/70">
-              Tillian is fully prepared for its v1.0-local release. Use the Release page or the PowerShell audit script to verify repository hygiene, secrets omission, and demonstration safety boundaries before publishing to GitHub or showing to employers.
+              Local AI is fully prepared for its v1.0-local release. Use the Release page or the PowerShell audit script to verify repository hygiene, secrets omission, and demonstration safety boundaries before publishing to GitHub or showing to employers.
             </p>
             <div className="flex gap-4">
               <button
@@ -291,7 +291,7 @@ export const SetupGuide = ({ onRunAction }: { onRunAction?: (name: string, apiCa
             <div className="mt-4 space-y-2">
               <h3 className="font-semibold text-white/80">Run Final Release Audit</h3>
               <code className="block p-3 bg-black/40 border border-white/10 rounded text-xs text-primary break-all select-all">
-                C:\Users\kadar\OpenClawAutomation\Test-Tillian-Release-Readiness.ps1
+                C:\Users\kadar\OpenClawAutomation\Test-Local AI-Release-Readiness.ps1
               </code>
               <p className="text-xs text-white/50">Checks all safe release constraints locally.</p>
             </div>
@@ -302,3 +302,4 @@ export const SetupGuide = ({ onRunAction }: { onRunAction?: (name: string, apiCa
     </div>
   );
 };
+

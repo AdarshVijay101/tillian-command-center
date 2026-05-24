@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { ShieldCheck, Key, FileText, CheckCircle2, AlertTriangle, XCircle, Code, Copy } from 'lucide-react';
 import { api } from '../../services/api';
 
@@ -23,7 +23,7 @@ export default function Release() {
   }, []);
 
   const copyDemoScript = () => {
-    const text = `Tillian Command Center v1.0-local Demo Workflow:\n1. Open Tillian Dashboard on 127.0.0.1:5173\n2. Show Release Readiness Score\n3. Show Evidence UI and generate package\n4. Trigger Demo Mode from Navbar\n5. Prove safe action interception without secrets exposure.`;
+    const text = `Local AI Command Center v1.0-local Demo Workflow:\n1. Open Local AI Dashboard on 127.0.0.1:5173\n2. Show Release Readiness Score\n3. Show Evidence UI and generate package\n4. Trigger Demo Mode from Navbar\n5. Prove safe action interception without secrets exposure.`;
     navigator.clipboard.writeText(text);
   };
 
@@ -149,7 +149,7 @@ export default function Release() {
               </button>
             </div>
             <p className="text-sm text-blue-200/80 mb-4">
-              Tillian is a local-first system. Use Demo Mode to safely show portfolio viewers how it works without mutating your underlying system or exposing secrets.
+              Local AI is a local-first system. Use Demo Mode to safely show portfolio viewers how it works without mutating your underlying system or exposing secrets.
             </p>
             <div className="space-y-2 text-sm text-blue-200">
               <div className="flex items-start gap-2">
@@ -175,3 +175,4 @@ export default function Release() {
     </div>
   );
 }
+

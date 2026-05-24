@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { api } from '../../services/api';
 import { Activity, Clock, CheckCircle2, CalendarClock, ShieldAlert, RefreshCw, Wrench, X, Terminal, Loader2 } from 'lucide-react';
@@ -139,7 +139,7 @@ export const Scheduler = () => {
                 <ShieldAlert size={20} />
                 Auto-Repair Console
               </h2>
-              <p className="text-white/60 text-sm mt-1">Tillian has detected missing or broken reminder tasks. You can repair all safe, allowlisted tasks automatically.</p>
+              <p className="text-white/60 text-sm mt-1">Local AI has detected missing or broken reminder tasks. You can repair all safe, allowlisted tasks automatically.</p>
             </div>
             {showRepairConfirm ? (
               <div className="bg-black/40 p-4 rounded-lg border border-red-500/20">
@@ -210,16 +210,16 @@ export const Scheduler = () => {
 
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
                   <div className={clsx("px-2 py-1.5 rounded border text-xs font-mono flex items-center justify-between", row.exists_in_os ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-red-500/10 border-red-500/20 text-red-400")}>
-                    Exists {row.exists_in_os ? '✓' : '✗'}
+                    Exists {row.exists_in_os ? 'âœ“' : 'âœ—'}
                   </div>
                   <div className={clsx("px-2 py-1.5 rounded border text-xs font-mono flex items-center justify-between", row.command_ok ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-red-500/10 border-red-500/20 text-red-400")}>
-                    Command {row.command_ok ? '✓' : '✗'}
+                    Command {row.command_ok ? 'âœ“' : 'âœ—'}
                   </div>
                   <div className={clsx("px-2 py-1.5 rounded border text-xs font-mono flex items-center justify-between", row.type_ok ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-red-500/10 border-red-500/20 text-red-400")}>
-                    Type Arg {row.type_ok ? '✓' : '✗'}
+                    Type Arg {row.type_ok ? 'âœ“' : 'âœ—'}
                   </div>
                   <div className={clsx("px-2 py-1.5 rounded border text-xs font-mono flex items-center justify-between", row.timing_ok ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-400" : "bg-red-500/10 border-red-500/20 text-red-400")}>
-                    Timing {row.timing_ok ? '✓' : '✗'}
+                    Timing {row.timing_ok ? 'âœ“' : 'âœ—'}
                   </div>
                 </div>
 
@@ -306,3 +306,4 @@ export const Scheduler = () => {
     </div>
   );
 };
+

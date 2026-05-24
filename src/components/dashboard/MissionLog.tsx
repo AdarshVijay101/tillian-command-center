@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { api } from '../../services/api';
 import { Terminal, Activity, Clock, FileText, Play, CheckCircle2, AlertCircle, Loader2, Search, Film, Trash2 } from 'lucide-react';
@@ -50,10 +50,10 @@ export const MissionLog = ({ onOpenRun }: { onOpenRun: (id: string) => void }) =
   useEffect(() => {
     fetchRuns();
     const handleRefresh = () => fetchRuns();
-    window.addEventListener('tillian:refresh', handleRefresh);
+    window.addEventListener('Local AI:refresh', handleRefresh);
     const interval = setInterval(fetchRuns, 10000); // Also poll every 10s
     return () => {
-      window.removeEventListener('tillian:refresh', handleRefresh);
+      window.removeEventListener('Local AI:refresh', handleRefresh);
       clearInterval(interval);
     };
   }, []);
@@ -233,3 +233,4 @@ export const MissionLog = ({ onOpenRun }: { onOpenRun: (id: string) => void }) =
     </div>
   );
 };
+

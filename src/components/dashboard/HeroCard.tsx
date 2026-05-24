@@ -1,4 +1,4 @@
-import { GlassCard } from '../ui/GlassCard';
+﻿import { GlassCard } from '../ui/GlassCard';
 import { Target, ArrowRight, Activity, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useHealth } from '../../hooks/useData';
@@ -89,7 +89,7 @@ export const HeroCard = ({ onNavigateToMissionControl, onGoToCheckIn }: { onNavi
               {template ? `Mission: ${template.title.replace(' Mission', '')}` : 'Execute OpenClaw Build'}
             </h1>
             <p className="text-white/50 max-w-lg leading-relaxed">
-              {recommendation ? recommendation.reason : 'Tillian Command Center · Current Focus: Core infrastructure and agent orchestration.'}
+              {recommendation ? recommendation.reason : 'Local AI Command Center Â· Current Focus: Core infrastructure and agent orchestration.'}
             </p>
             {readiness && !readiness.safe_to_create && !readiness.openclaw_required && readiness.duplicate_exists && (
               <p className="text-amber-400 text-sm mt-2 flex items-center gap-2">
@@ -220,3 +220,4 @@ export const HeroCard = ({ onNavigateToMissionControl, onGoToCheckIn }: { onNavi
     </GlassCard>
   );
 };
+

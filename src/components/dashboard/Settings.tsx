@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { Settings as SettingsIcon, ShieldCheck, ShieldAlert, Link, Folder, Trash2, Cpu, MessageSquare } from 'lucide-react';
 import { useDemoMode } from '../../hooks/useDemoMode';
@@ -28,7 +28,7 @@ export default function Settings() {
             </div>
             <h1 className="text-3xl font-bold tracking-tight">System Settings</h1>
           </div>
-          <p className="text-gray-400">Configure Tillian Command Center behavior and boundaries.</p>
+          <p className="text-gray-400">Configure Local AI Command Center behavior and boundaries.</p>
         </div>
 
         {/* Global Demo Mode */}
@@ -43,7 +43,7 @@ export default function Settings() {
                 <p className="text-sm text-gray-400 mt-1 max-w-lg">
                   {isDemoMode 
                     ? 'Demo Mode is active. API responses are simulated, no real jobs will run, and the database will not be mutated.' 
-                    : 'Local Live Mode is active. Tillian can run allowlisted local actions and database updates. OpenClaw must be started manually in WSL.'}
+                    : 'Local Live Mode is active. Local AI can run allowlisted local actions and database updates. OpenClaw must be started manually in WSL.'}
                 </p>
               </div>
             </div>
@@ -123,10 +123,11 @@ export default function Settings() {
         </GlassCard>
 
         <div className="text-center text-xs text-gray-500 pt-4">
-          Tillian Command Center v1.0-local
+          Local AI Command Center v1.0-local
         </div>
 
       </div>
     </div>
   );
 }
+

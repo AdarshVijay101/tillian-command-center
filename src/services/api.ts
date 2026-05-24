@@ -1,4 +1,4 @@
-import { getIsDemoMode } from '../hooks/useDemoMode';
+﻿import { getIsDemoMode } from '../hooks/useDemoMode';
 
 const API_URL = 'http://127.0.0.1:8787/api';
 
@@ -824,7 +824,7 @@ export const api = {
   getSystemReport: () => fetchApi('/system/report'),
   getSystemReportMarkdown: async () => {
     if (getIsDemoMode()) {
-      return `# Tillian Command Center - Diagnostic Report\n**Timestamp:** ${new Date().toISOString()}\n**Demo Mode:** Active`;
+      return `# Local AI Command Center - Diagnostic Report\n**Timestamp:** ${new Date().toISOString()}\n**Demo Mode:** Active`;
     }
     const res = await fetch(`${API_URL}/system/report/markdown`);
     return res.text();
@@ -924,3 +924,4 @@ export const api = {
   // Config
   getConfig: () => fetchApi('/config/public')
 };
+

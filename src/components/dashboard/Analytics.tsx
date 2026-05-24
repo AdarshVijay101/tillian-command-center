@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { api } from '../../services/api';
 import { motion } from 'framer-motion';
@@ -42,8 +42,8 @@ export const Analytics = () => {
     };
     fetchData();
     
-    window.addEventListener('tillian:refresh', fetchData);
-    return () => window.removeEventListener('tillian:refresh', fetchData);
+    window.addEventListener('Local AI:refresh', fetchData);
+    return () => window.removeEventListener('Local AI:refresh', fetchData);
   }, [isDemoMode]);
 
   if (loading) {
@@ -89,7 +89,7 @@ export const Analytics = () => {
 
       {/* Required Safety/Design Warning Labels */}
       <div className="flex flex-wrap gap-2 mb-4">
-        <span className="px-2 py-1 bg-amber-500/10 text-amber-400/80 border border-amber-500/20 rounded text-xs">Reminder delivery ≠ real task completion</span>
+        <span className="px-2 py-1 bg-amber-500/10 text-amber-400/80 border border-amber-500/20 rounded text-xs">Reminder delivery â‰  real task completion</span>
         <span className="px-2 py-1 bg-purple-500/10 text-purple-400/80 border border-purple-500/20 rounded text-xs">Heuristic score</span>
         <span className="px-2 py-1 bg-blue-500/10 text-blue-400/80 border border-blue-500/20 rounded text-xs">SQLite local-only</span>
         <span className="px-2 py-1 bg-emerald-500/10 text-emerald-400/80 border border-emerald-500/20 rounded text-xs">No secrets stored</span>
@@ -264,3 +264,4 @@ export const Analytics = () => {
     </div>
   );
 };
+

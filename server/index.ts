@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import cors from 'cors';
 import { z } from 'zod';
 import fs from 'fs/promises';
@@ -97,7 +97,7 @@ const sendResponse = (res: express.Response, data: any = null, error: string | n
 app.get('/api/ping', (req, res) => {
   res.json({
     ok: true,
-    message: 'Tillian backend online',
+    message: 'Local AI backend online',
     timestamp: new Date().toISOString()
   });
 });
@@ -1397,7 +1397,7 @@ app.listen(PORT, HOST, async () => {
     console.error('[DB] Failed to initialize SQLite:', err);
   }
   console.log(`\n======================================================`);
-  console.log(`Tillian Command Center Backend Online`);
+  console.log(`Local AI Command Center Backend Online`);
   console.log(`URL: http://${HOST}:${PORT}`);
   console.log(`------------------------------------------------------`);
   console.log(`Config Loaded:`);
@@ -1407,3 +1407,4 @@ app.listen(PORT, HOST, async () => {
   console.log(`- Allowed Scheduled Tasks: ${ALLOWED_SCHEDULED_TASKS.length}`);
   console.log(`======================================================\n`);
 });
+

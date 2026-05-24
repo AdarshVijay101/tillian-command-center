@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { api } from '../../services/api';
 import { Activity, ShieldCheck, AlertCircle, CheckCircle2, Download, Copy, Play, Loader2, Stethoscope, Clock, Bell, Terminal, Wrench, Server } from 'lucide-react';
@@ -176,19 +176,19 @@ export const Reliability = ({ setActiveTab }: { setActiveTab: (tab: string) => v
               <div>
                 <p className="text-xs text-white/50 mb-1">Stop Duplicate Dev Servers</p>
                 <code className="block p-2 bg-black/40 border border-white/10 rounded text-[10px] text-cyan-300 break-all select-all">
-                  .\Stop-Tillian-Duplicate-DevServers.ps1
+                  .\Stop-Local AI-Duplicate-DevServers.ps1
                 </code>
               </div>
               <div>
                 <p className="text-xs text-white/50 mb-1">Start Clean Dev Server</p>
                 <code className="block p-2 bg-black/40 border border-white/10 rounded text-[10px] text-cyan-300 break-all select-all">
-                  .\Start-Tillian-Command-Center.ps1
+                  .\Start-Local AI-Command-Center.ps1
                 </code>
               </div>
               <div>
                 <p className="text-xs text-white/50 mb-1">Run CLI Test Harness</p>
                 <code className="block p-2 bg-black/40 border border-white/10 rounded text-[10px] text-cyan-300 break-all select-all">
-                  .\Test-Tillian-System.ps1
+                  .\Test-Local AI-System.ps1
                 </code>
               </div>
             </div>
@@ -231,3 +231,4 @@ export const Reliability = ({ setActiveTab }: { setActiveTab: (tab: string) => v
     </div>
   );
 };
+

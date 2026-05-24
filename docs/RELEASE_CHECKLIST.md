@@ -1,10 +1,10 @@
-# Release Checklist
+﻿# Release Checklist
 
-This document ensures Tillian Command Center is ready for a safe public GitHub release.
+This document ensures Local AI Command Center is ready for a safe public GitHub release.
 
 ## Final Checks
 - [x] Backend local only (bound to `127.0.0.1`)
-- [x] Databases ignored (`tillian.db`, `*.db-wal`, etc.)
+- [x] Databases ignored (`Local AI.db`, `*.db-wal`, etc.)
 - [x] Action ledgers ignored (`action-runs.json`)
 - [x] `.env` files ignored
 - [x] No secrets in tracked files
@@ -20,11 +20,12 @@ This document ensures Tillian Command Center is ready for a safe public GitHub r
 ## Validation Commands
 Run these inside PowerShell to guarantee your build is perfectly safe:
 ```powershell
-cd "D:\DATA ENGINEER\PROJECTS\tillian-command-center"
+cd "D:\DATA ENGINEER\PROJECTS\Local AI-command-center"
 npm run build
-& "$env:USERPROFILE\OpenClawAutomation\Test-Tillian-System.ps1"
-& "$env:USERPROFILE\OpenClawAutomation\Test-Tillian-Release-Readiness.ps1"
+& "$env:USERPROFILE\OpenClawAutomation\Test-Local AI-System.ps1"
+& "$env:USERPROFILE\OpenClawAutomation\Test-Local AI-Release-Readiness.ps1"
 ```
 
 ## Known Warnings
-- OpenClaw Offline is intentionally treated as a `WARNING` (Degraded Mode), not a failure, because Tillian's core routing engine remains operational for essential scripts.
+- OpenClaw Offline is intentionally treated as a `WARNING` (Degraded Mode), not a failure, because Local AI's core routing engine remains operational for essential scripts.
+

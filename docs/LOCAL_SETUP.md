@@ -1,6 +1,6 @@
-# Local Setup Guide
+﻿# Local Setup Guide
 
-Follow these steps to deploy Tillian Command Center on your local Windows machine.
+Follow these steps to deploy Local AI Command Center on your local Windows machine.
 
 ## Prerequisites
 - Node.js (v18+)
@@ -40,5 +40,6 @@ openclaw gateway run --port 18789
 ## 6. Verification
 Run the system diagnostic suite to ensure everything is connected:
 ```powershell
-& "$env:USERPROFILE\OpenClawAutomation\Test-Tillian-System.ps1"
+& "$env:USERPROFILE\OpenClawAutomation\Test-Local AI-System.ps1"
 ```
+

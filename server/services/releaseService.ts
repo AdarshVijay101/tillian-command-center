@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { HOST } from '../config';
 import { getSystemReport } from './systemTestService';
@@ -91,7 +91,7 @@ export const getRepoSafety = () => {
     if (fs.existsSync(gitignorePath)) {
       gitignoreValid = true;
       const content = fs.readFileSync(gitignorePath, 'utf8');
-      dbIgnored = content.includes('tillian.db') && content.includes('*.db-wal') || content.includes('db-wal') || content.includes('tillian.db-wal');
+      dbIgnored = content.includes('Local AI.db') && content.includes('*.db-wal') || content.includes('db-wal') || content.includes('Local AI.db-wal');
       ledgersIgnored = content.includes('action-runs.json') || content.includes('action-runs.archive.json');
       envIgnored = content.includes('.env');
     }
@@ -108,3 +108,4 @@ export const getRepoSafety = () => {
     backendHost: HOST
   };
 };
+

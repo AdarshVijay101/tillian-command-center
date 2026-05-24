@@ -1,4 +1,4 @@
-import fs from 'fs/promises';
+﻿import fs from 'fs/promises';
 import { createReadStream } from 'fs';
 import path from 'path';
 import readline from 'readline';
@@ -20,7 +20,7 @@ const FILE_TYPES = [
   { id: 'ai_generated_evening_review_from_notion', match: /evening.*review/i },
   { id: 'ai_generated_weekly_digest_from_notion', match: /weekly.*digest/i },
   { id: 'dynamic_adjustment', match: /dynamic.*adjustment/i },
-  { id: 'openclaw_tillian_ai_final_runbook', match: /openclaw.*runbook/i },
+  { id: 'openclaw_Local AI_ai_final_runbook', match: /openclaw.*runbook/i },
 ];
 
 async function scanFolder(folderPath: string, location: 'drop' | 'processed'): Promise<FileMetadata[]> {
@@ -120,3 +120,4 @@ export async function previewFile(targetPath: string): Promise<string> {
     });
   });
 }
+

@@ -1,4 +1,4 @@
-import { execa } from 'execa';
+﻿import { execa } from 'execa';
 import { PATHS } from '../config';
 import { logScheduledTaskAudits, ScheduledTaskAuditRow } from '../db/schedulerRepository';
 
@@ -200,7 +200,7 @@ export async function repairReminderTask(type: string) {
     $trigger = New-ScheduledTaskTrigger -Daily -At "${expected.time}"
     $settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -StartWhenAvailable
     
-    Register-ScheduledTask -Action $action -Trigger $trigger -Settings $settings -TaskName "${expected.taskName}" -Description "Tillian ${type} routine reminder" -Force | Out-Null
+    Register-ScheduledTask -Action $action -Trigger $trigger -Settings $settings -TaskName "${expected.taskName}" -Description "Local AI ${type} routine reminder" -Force | Out-Null
     Write-Output "Successfully repaired ${expected.taskName}"
   `;
 
@@ -245,3 +245,4 @@ export async function toggleReminderTask(type: string, enable: boolean) {
     throw new Error(`Failed to ${enable ? 'enable' : 'disable'} task: ` + err.message);
   }
 }
+

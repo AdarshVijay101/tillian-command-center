@@ -1,10 +1,10 @@
-# Troubleshooting
+﻿# Troubleshooting
 
 ## Duplicate Dev Servers
 **Issue:** `EADDRINUSE` or frozen dashboard because Vite/Express is locked.
 **Resolution:** Run the killer script:
 ```powershell
-C:\Users\kadar\OpenClawAutomation\Stop-Tillian-Duplicate-DevServers.ps1
+C:\Users\kadar\OpenClawAutomation\Stop-Local AI-Duplicate-DevServers.ps1
 ```
 
 ## Backend Not Responding
@@ -17,7 +17,7 @@ C:\Users\kadar\OpenClawAutomation\Stop-Tillian-Duplicate-DevServers.ps1
 ```bash
 openclaw gateway run --port 18789
 ```
-This is a Degraded State—Tillian will still send Telegram routines perfectly fine.
+This is a Degraded Stateâ€”Local AI will still send Telegram routines perfectly fine.
 
 ## SQLite Database Locked
 **Issue:** `SQLITE_BUSY: database is locked`.
@@ -25,8 +25,9 @@ This is a Degraded State—Tillian will still send Telegram routines perfectly f
 
 ## Scheduler Tasks Failing
 **Issue:** Reminders are not sending.
-**Resolution:** Check the `Scheduler` page in Tillian and use the Auto-Repair Console.
+**Resolution:** Check the `Scheduler` page in Local AI and use the Auto-Repair Console.
 
 ## Artifact Preview Blocked
 **Issue:** Files in the Review Inbox cannot be previewed.
-**Resolution:** Tillian enforces absolute path containment. Ensure the files actually reside inside `PATHS.processedFolder` defined in `server/config.ts`.
+**Resolution:** Local AI enforces absolute path containment. Ensure the files actually reside inside `PATHS.processedFolder` defined in `server/config.ts`.
+

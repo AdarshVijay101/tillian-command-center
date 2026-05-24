@@ -1,4 +1,4 @@
-import { Sidebar } from './components/layout/Sidebar';
+﻿import { Sidebar } from './components/layout/Sidebar';
 import { TopBar } from './components/layout/TopBar';
 import { HeroCard } from './components/dashboard/HeroCard';
 import { ProtocolCard } from './components/dashboard/ProtocolCard';
@@ -134,7 +134,7 @@ function App() {
                 <ProtocolCard 
                   title="Work Protocol"
                   icon={Code}
-                  status="OpenClaw / Tillian Build"
+                  status="OpenClaw / Local AI Build"
                   next="Demo Prep"
                   mode="FOCUS"
                   glowColor="cyan"
@@ -226,3 +226,4 @@ function App() {
 }
 
 export default App;
+

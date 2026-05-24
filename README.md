@@ -1,4 +1,4 @@
-# Personnel AI Command Center
+﻿# Local AI Command Center
 
 ![Version](https://img.shields.io/badge/version-v1.0--local-blue)
 ![Local-First](https://img.shields.io/badge/architecture-local--first-success)
@@ -8,10 +8,10 @@
 
 
 ## What It Is
-Tillian Command Center is a **local-first personal AI operations console**. It provides a premium JARVIS-style dashboard to manage, review, and execute AI agent workflows locally using an Obsidian Second Brain and PowerShell integrations.
+Local AI Command Center is a **local-first personal AI operations console**. It provides a premium JARVIS-style dashboard to manage, review, and execute AI agent workflows locally using an Obsidian Second Brain and PowerShell integrations.
 
 ## Why Local-First
-AI agents require access to highly sensitive personal data. Sending this data to a cloud service introduces privacy risks. Tillian ensures your AI agents run entirely on your local machine (`127.0.0.1`), allowing you to harness the power of AI without exposing your personal Second Brain or local credentials to external servers.
+AI agents require access to highly sensitive personal data. Sending this data to a cloud service introduces privacy risks. Local AI ensures your AI agents run entirely on your local machine (`127.0.0.1`), allowing you to harness the power of AI without exposing your personal Second Brain or local credentials to external servers.
 
 ## Core Features
 - **Premium JARVIS-style Dashboard**: A visually striking mission control interface.
@@ -23,7 +23,7 @@ AI agents require access to highly sensitive personal data. Sending this data to
 - **Artifact Review Inbox & Evidence Packages**: Reviews AI-generated files safely without mutating them and creates redacted evidence for sharing.
 
 ## Architecture Overview
-Tillian is composed of three main layers:
+Local AI is composed of three main layers:
 1. **Frontend**: A React/Vite dashboard running on `localhost:5173`.
 2. **Backend**: An Express server running on `127.0.0.1:8787`, backed by a local SQLite database.
 3. **Execution Layer**: Secure Windows PowerShell scripts and an optional OpenClaw WSL Gateway that handles raw execution.
@@ -31,20 +31,20 @@ Tillian is composed of three main layers:
 ## Safety Model
 > [!WARNING]
 > **Explicit Safety Boundaries:**
-> - Tillian does **NOT** expose a public backend. It refuses to bind to `0.0.0.0`.
+> - Local AI does **NOT** expose a public backend. It refuses to bind to `0.0.0.0`.
 > - It does **NOT** include or track any secrets in the repository (`.env` files are fully gitignored).
 > - All Telegram and AI API keys stay exclusively in untracked local environments.
 > - Heavy jobs queue safely and wait for human approval.
 > - Artifacts are previewed in read-only mode to prevent unintended system mutations.
 
 ## Demo Mode
-Tillian includes a secure **Demo Mode** accessible from the UI. When enabled, it intercepts real API calls and simulates data. This allows for safe portfolio walkthroughs, screen sharing, and employer presentations without exposing private schedules, IP addresses, or underlying database contents.
+Local AI includes a secure **Demo Mode** accessible from the UI. When enabled, it intercepts real API calls and simulates data. This allows for safe portfolio walkthroughs, screen sharing, and employer presentations without exposing private schedules, IP addresses, or underlying database contents.
 
 ## Local Integration Requirements
 
-Tillian Command Center is designed as a local-first AI operations console, not a cloud-hosted SaaS application.
+Local AI Command Center is designed as a local-first AI operations console, not a cloud-hosted SaaS application.
 
-This repository provides the frontend dashboard, local Express backend, SQLite schema, safety model, and documentation required to run the system locally. However, integrations such as OpenClaw, Obsidian, Telegram, Notion, WSL, and Windows Scheduled Tasks must be configured manually on each user’s machine.
+This repository provides the frontend dashboard, local Express backend, SQLite schema, safety model, and documentation required to run the system locally. However, integrations such as OpenClaw, Obsidian, Telegram, Notion, WSL, and Windows Scheduled Tasks must be configured manually on each userâ€™s machine.
 
 This is intentional. These integrations depend on private local paths, personal vaults, API tokens, Telegram credentials, and machine-specific automation settings that should never be committed to GitHub.
 
@@ -115,4 +115,5 @@ Access the dashboard at `http://localhost:5173`.
 - [Release Checklist](docs/RELEASE_CHECKLIST.md)
 
 ## Roadmap
-Tillian Command Center v1.0-local establishes a rock-solid foundation. Future enhancements will focus strictly on improving local telemetry and Offline speech integrations. Read more in the [Roadmap](docs/ROADMAP.md).
+Local AI Command Center v1.0-local establishes a rock-solid foundation. Future enhancements will focus strictly on improving local telemetry and Offline speech integrations. Read more in the [Roadmap](docs/ROADMAP.md).
+

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+﻿import { useState, useEffect, useCallback } from 'react';
 import { api } from '../services/api';
 
 export function useHealth(pollIntervalMs = 10000) {
@@ -21,10 +21,10 @@ export function useHealth(pollIntervalMs = 10000) {
   useEffect(() => {
     fetchHealth();
     const interval = setInterval(fetchHealth, pollIntervalMs);
-    window.addEventListener('tillian:refresh', fetchHealth);
+    window.addEventListener('Local AI:refresh', fetchHealth);
     return () => {
       clearInterval(interval);
-      window.removeEventListener('tillian:refresh', fetchHealth);
+      window.removeEventListener('Local AI:refresh', fetchHealth);
     };
   }, [fetchHealth, pollIntervalMs]);
 
@@ -47,10 +47,10 @@ export function useLatestFiles(pollIntervalMs = 30000) {
   useEffect(() => {
     fetchFiles();
     const interval = setInterval(fetchFiles, pollIntervalMs);
-    window.addEventListener('tillian:refresh', fetchFiles);
+    window.addEventListener('Local AI:refresh', fetchFiles);
     return () => {
       clearInterval(interval);
-      window.removeEventListener('tillian:refresh', fetchFiles);
+      window.removeEventListener('Local AI:refresh', fetchFiles);
     };
   }, [fetchFiles, pollIntervalMs]);
 
@@ -73,12 +73,13 @@ export const useValidation = (pollIntervalMs: number = 30000) => {
   useEffect(() => {
     fetchValidation();
     const interval = setInterval(fetchValidation, pollIntervalMs);
-    window.addEventListener('tillian:refresh', fetchValidation);
+    window.addEventListener('Local AI:refresh', fetchValidation);
     return () => {
       clearInterval(interval);
-      window.removeEventListener('tillian:refresh', fetchValidation);
+      window.removeEventListener('Local AI:refresh', fetchValidation);
     };
   }, [pollIntervalMs]);
 
   return { data };
 };
+

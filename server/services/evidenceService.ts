@@ -1,4 +1,4 @@
-import { getArtifactReviewById, getArtifactReviewInbox } from '../db/artifactReviewRepository';
+﻿import { getArtifactReviewById, getArtifactReviewInbox } from '../db/artifactReviewRepository';
 import { 
   createOrUpdateEvidenceNote, 
   getEvidenceStats, 
@@ -95,7 +95,7 @@ export const generateEvidenceSummaryMarkdown = (packageId: string) => {
     }
   }
 
-  markdown += `## Disclaimer\nThis package was safely generated from local metadata using Tillian Command Center.\n`;
+  markdown += `## Disclaimer\nThis package was safely generated from local metadata using Local AI Command Center.\n`;
 
   // Return dynamically without mutating database on GET request
   return markdown;
@@ -109,3 +109,4 @@ export const getEvidenceDashboard = () => {
     recentPackages: getEvidencePackages().slice(0, 5)
   };
 };
+

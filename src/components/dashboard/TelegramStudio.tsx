@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { GlassCard } from '../ui/GlassCard';
 import { MessageSquare, Send, Save, RefreshCw, AlertTriangle, ShieldCheck } from 'lucide-react';
 import { useDemoMode } from '../../hooks/useDemoMode';
@@ -98,13 +98,13 @@ export const TelegramStudio = () => {
             </div>
             <h1 className="text-3xl font-bold tracking-tight">Telegram Studio</h1>
           </div>
-          <p className="text-gray-400">Design, preview, and test Tillian notification payloads.</p>
+          <p className="text-gray-400">Design, preview, and test Local AI notification payloads.</p>
         </div>
 
         {isDemoMode && (
           <div className="bg-amber-500/10 border border-amber-500/20 p-4 rounded-xl flex items-center space-x-3">
             <AlertTriangle className="w-5 h-5 text-amber-400" />
-            <p className="text-amber-300 text-sm">DEMO MODE — Messages will not actually be sent to Telegram.</p>
+            <p className="text-amber-300 text-sm">DEMO MODE â€” Messages will not actually be sent to Telegram.</p>
           </div>
         )}
 
@@ -189,3 +189,4 @@ export const TelegramStudio = () => {
     </div>
   );
 };
+

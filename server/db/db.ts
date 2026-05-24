@@ -1,7 +1,7 @@
-import Database from 'better-sqlite3';
+﻿import Database from 'better-sqlite3';
 import path from 'path';
 
-const DB_PATH = path.join(process.cwd(), 'server', 'data', 'tillian.db');
+const DB_PATH = path.join(process.cwd(), 'server', 'data', 'Local AI.db');
 
 export const db = new Database(DB_PATH);
 db.pragma('journal_mode = WAL');
@@ -12,3 +12,4 @@ export const getDbStatus = () => {
     dbPath: DB_PATH
   };
 };
+

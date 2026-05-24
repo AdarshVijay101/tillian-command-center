@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { CheckCircle, AlertCircle, TrendingUp, ShieldAlert, Zap, Edit3 } from 'lucide-react';
 import { api } from '../../services/api';
 import { getIsDemoMode } from '../../hooks/useDemoMode';
@@ -129,13 +129,13 @@ export const CheckIn = () => {
             </div>
             <h1 className="text-3xl font-bold tracking-tight">Daily Check-In</h1>
           </div>
-          <p className="text-gray-400">Human confirmation layer for Tillian automated intelligence.</p>
+          <p className="text-gray-400">Human confirmation layer for Local AI automated intelligence.</p>
         </div>
 
         {isDemo && (
           <div className="bg-blue-500/10 border border-blue-500/20 p-4 rounded-xl flex items-center space-x-3">
             <ShieldAlert className="w-5 h-5 text-blue-400" />
-            <p className="text-blue-300">DEMO CHECK-IN — Simulations run locally and do not mutate SQLite.</p>
+            <p className="text-blue-300">DEMO CHECK-IN â€” Simulations run locally and do not mutate SQLite.</p>
           </div>
         )}
 
@@ -300,3 +300,4 @@ export const CheckIn = () => {
     </div>
   );
 };
+

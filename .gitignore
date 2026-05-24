@@ -1,4 +1,4 @@
-# Logs
+﻿# Logs
 logs
 *.log
 npm-debug.log*
@@ -26,11 +26,20 @@ dist-ssr
 # Backend Data and Logs
 server/data/action-runs.json
 server/data/action-runs.archive.json
-server/data/tillian.db
-server/data/tillian.db-wal
-server/data/tillian.db-shm
+server/data/Local AI.db
+server/data/Local AI.db-wal
+server/data/Local AI.db-shm
 temp/
 logs/
 .env
 .env.*
 secrets/
+
+
+# Local runtime data
+server/data/
+server/data/*.db
+server/data/*.db-wal
+server/data/*.db-shm
+server/data/action-runs.json
+server/data/action-runs.archive.json

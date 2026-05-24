@@ -1,4 +1,4 @@
-import { db } from './db';
+﻿import { db } from './db';
 
 export interface MissionTemplate {
   id: string;
@@ -102,7 +102,7 @@ const TEMPLATES: MissionTemplate[] = [
     id: 'sync_generated_files',
     job_type: 'sync_generated_files',
     title: 'Sync Generated Files Mission',
-    description: 'Synchronizes drop folders into the Tillian database.',
+    description: 'Synchronizes drop folders into the Local AI database.',
     category: 'system',
     is_heavy: 0,
     requires_approval: 0,
@@ -185,3 +185,4 @@ export const getActiveMissionTemplates = (): MissionTemplate[] => {
 export const getMissionTemplatesByCategory = (category: string): MissionTemplate[] => {
   return db.prepare('SELECT * FROM mission_templates WHERE category = ? AND is_active = 1').all(category) as MissionTemplate[];
 };
+

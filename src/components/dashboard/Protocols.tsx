@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+﻿import { useEffect, useState } from 'react';
 import { BookOpen, Activity, Droplets, Sun, Moon, BrainCircuit, Calendar, ChevronDown, ChevronUp, Send, Copy } from 'lucide-react';
 import { api } from '../../services/api';
 
@@ -98,7 +98,7 @@ export const Protocols = () => {
     if (!selectedPreview || isSending) return;
     setIsSending(true);
     await api.sendRoutineReminder(selectedPreview);
-    window.dispatchEvent(new Event('tillian:refresh'));
+    window.dispatchEvent(new Event('Local AI:refresh'));
     setIsSending(false);
   };
 
@@ -214,7 +214,7 @@ export const Protocols = () => {
         <div className="flex flex-col lg:flex-row gap-6">
           <div className="lg:w-1/3 space-y-4">
             <p className="text-sm text-gray-400">
-              Tillian securely orchestrates local PowerShell scripts to deliver these dynamically built payloads via Telegram, ensuring API tokens remain 100% detached from this web dashboard.
+              Local AI securely orchestrates local PowerShell scripts to deliver these dynamically built payloads via Telegram, ensuring API tokens remain 100% detached from this web dashboard.
             </p>
             <div className="space-y-2">
               <label className="text-xs uppercase tracking-widest text-gray-500 font-semibold">Select Reminder Protocol</label>
@@ -261,3 +261,4 @@ export const Protocols = () => {
     </div>
   );
 };
+

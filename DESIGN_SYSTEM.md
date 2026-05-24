@@ -1,4 +1,4 @@
-# Tillian Command Center - Design Execution Note
+﻿# Local AI Command Center - Design Execution Note
 
 ## Visual System
 The application is designed to feel like a premium AI operating system, specifically targeting a "JARVIS-level command center" aesthetic. The interface uses heavy glassmorphism (`backdrop-blur-xl`, subtle white borders, dark semi-transparent backgrounds), layered shadows, and high contrast against a deep dark background. 
@@ -37,3 +37,4 @@ The application is designed to feel like a premium AI operating system, specific
    - Left 2/3: Protocol Cards (Work, Body, Skin, Study).
    - Right 1/3: Risk Radar / System Health card.
 4. **Bottom Section:** Mini Mission Timeline preview.
+

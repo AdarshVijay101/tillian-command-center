@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+﻿import { useState, useRef } from 'react';
 import { api } from '../services/api';
 import type { ApiResponse } from '../services/api';
 
@@ -41,7 +41,7 @@ export function useAgentActions() {
 
   // Expose a global refresh trigger
   const triggerRefresh = () => {
-    window.dispatchEvent(new Event('tillian:refresh'));
+    window.dispatchEvent(new Event('Local AI:refresh'));
   };
 
   const startPreflight = async (actionId: string, actionLabel: string, apiCall: () => Promise<ApiResponse>) => {
@@ -179,3 +179,4 @@ export function useAgentActions() {
     closeDrawer
   };
 }
+
