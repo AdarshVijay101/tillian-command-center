@@ -40,6 +40,27 @@ Tillian is composed of three main layers:
 ## Demo Mode
 Tillian includes a secure **Demo Mode** accessible from the UI. When enabled, it intercepts real API calls and simulates data. This allows for safe portfolio walkthroughs, screen sharing, and employer presentations without exposing private schedules, IP addresses, or underlying database contents.
 
+## Local Integration Requirements
+
+Tillian Command Center is designed as a local-first AI operations console, not a cloud-hosted SaaS application.
+
+This repository provides the frontend dashboard, local Express backend, SQLite schema, safety model, and documentation required to run the system locally. However, integrations such as OpenClaw, Obsidian, Telegram, Notion, WSL, and Windows Scheduled Tasks must be configured manually on each user’s machine.
+
+This is intentional. These integrations depend on private local paths, personal vaults, API tokens, Telegram credentials, and machine-specific automation settings that should never be committed to GitHub.
+
+For reviewers, employers, or collaborators, the project includes Demo Mode, which safely demonstrates the workflow without sending Telegram messages, modifying files, running OpenClaw actions, or exposing secrets.
+
+To enable full Local Live Mode, users must configure their own:
+
+- OpenClaw gateway in WSL
+- Obsidian vault and `_OPENCLAW_DROP` folders
+- Telegram bot credentials in a local untracked environment file
+- Notion workspace/database if using Notion workflows
+- Windows Scheduled Tasks for reminders
+- Local configuration paths matching their own machine
+
+This architecture keeps the project secure, portable, and reviewable while preserving the privacy boundaries required for a personal AI assistant.
+
 ## Setup
 Follow the [Local Setup Guide](docs/LOCAL_SETUP.md) for full prerequisites and dependencies.
 ```bash
