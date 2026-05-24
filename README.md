@@ -1,4 +1,4 @@
-# Tillian Command Center
+# Personnel AI Command Center
 
 ![Version](https://img.shields.io/badge/version-v1.0--local-blue)
 ![Local-First](https://img.shields.io/badge/architecture-local--first-success)
