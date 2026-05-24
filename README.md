@@ -62,6 +62,22 @@ Access the dashboard at `http://localhost:5173`.
 - **Evidence**: Generate redacted markdown packages proving AI value.
 - **Release**: Validate repository hygiene before publishing to GitHub.
 
+## Screenshots
+*(Add your final verified safe screenshots to `docs/assets/` matching these filenames)*
+- **Mission Dashboard**: `docs/assets/mission_dashboard.png`
+- **System Doctor**: `docs/assets/system_doctor.png`
+- **Telegram Studio**: `docs/assets/telegram_studio.png`
+- **Review Inbox**: `docs/assets/review_inbox.png`
+- **Evidence Page**: `docs/assets/evidence.png`
+- **Release Readiness**: `docs/assets/release_readiness.png`
+
+![Mission Dashboard](docs/assets/mission_dashboard.png)
+![System Doctor](docs/assets/system_doctor.png)
+![Telegram Studio](docs/assets/telegram_studio.png)
+![Review Inbox](docs/assets/review_inbox.png)
+![Evidence](docs/assets/evidence.png)
+![Release Readiness](docs/assets/release_readiness.png)
+
 ## What Is Intentionally Excluded
 - Cloud synchronization
 - Built-in authentication (local physical access is the security boundary)
