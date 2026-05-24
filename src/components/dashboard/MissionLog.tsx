@@ -13,13 +13,38 @@ export const MissionLog = ({ onOpenRun }: { onOpenRun: (id: string) => void }) =
   const [search, setSearch] = useState('');
   const [replayRun, setReplayRun] = useState<any | null>(null);
   const [clearText, setClearText] = useState('');
+  const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
 
   const fetchRuns = async () => {
-    const res = await api.getRuns();
-    if (res.ok) {
-      setRuns(res.data as any[]);
+    try {
+      const [runsRes, jobsRes] = await Promise.all([
+        api.getRuns(),
+        api.getJobs()
+      ]);
+      
+      let allItems: any[] = [];
+      if (runsRes.ok) {
+        allItems = allItems.concat((runsRes.data as any[]).map(r => ({ ...r, type: 'run' })));
+      }
+      if (jobsRes.ok) {
+        allItems = allItems.concat((jobsRes.data as any[]).map(j => ({
+          ...j,
+          type: 'job',
+          id: j.id,
+          actionLabel: `Job: ${j.title}`,
+          category: 'Agent Orchestration',
+          status: j.status === 'succeeded' ? 'success' : j.status === 'failed' ? 'error' : j.status === 'running' ? 'running' : 'running', // Treat pending/blocked as running for icon
+          startedAt: j.created_at,
+          durationMs: j.duration_ms
+        })));
+      }
+      
+      allItems.sort((a, b) => new Date(b.startedAt).getTime() - new Date(a.startedAt).getTime());
+      setRuns(allItems);
+      setLastRefreshed(new Date());
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -85,9 +110,14 @@ export const MissionLog = ({ onOpenRun }: { onOpenRun: (id: string) => void }) =
             <p className="text-sm text-white/40">Action run ledger and execution history</p>
           </div>
         </div>
-        <button onClick={fetchRuns} className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-sm font-medium transition-colors">
-          Refresh Ledger
-        </button>
+        <div className="flex flex-col items-end">
+          <button onClick={fetchRuns} className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-sm font-medium transition-colors">
+            Refresh Ledger
+          </button>
+          {lastRefreshed && (
+            <span className="text-[10px] text-gray-500 mt-1">Last refreshed at {lastRefreshed.toLocaleTimeString()}</span>
+          )}
+        </div>
       </div>
 
       {/* Filters & Search */}
@@ -149,8 +179,8 @@ export const MissionLog = ({ onOpenRun }: { onOpenRun: (id: string) => void }) =
                         <span className="text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-white/50">{run.category}</span>
                       </div>
                       <div className="flex items-center gap-4 text-xs text-white/40">
-                        <span className="flex items-center gap-1"><Clock size={12} /> {formatDistanceToNow(new Date(run.startedAt), { addSuffix: true })}</span>
-                        {run.durationMs && <span>Duration: {(run.durationMs / 1000).toFixed(1)}s</span>}
+                        <span className="flex items-center gap-1"><Clock size={12} /> {run.startedAt ? formatDistanceToNow(new Date(run.startedAt), { addSuffix: true }) : 'Pending'}</span>
+                        {run.durationMs != null && <span>Duration: {(run.durationMs / 1000).toFixed(1)}s</span>}
                         <span className="font-mono text-[10px] opacity-50">ID: {run.id.slice(0, 8)}</span>
                       </div>
                     </div>

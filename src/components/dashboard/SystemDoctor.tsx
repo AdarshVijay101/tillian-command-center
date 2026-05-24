@@ -131,9 +131,12 @@ export const SystemDoctor = ({ onRunAction }: { onRunAction: (name: string, apiC
                   <p className="text-white/80 font-medium mb-1">OpenClaw Gateway</p>
                   <p className="text-xs text-white/40 mb-2">Port 18789</p>
                   {!diag.health.openclawGatewayReachable && (
-                    <div className="bg-black/40 p-2 rounded border border-white/5 flex gap-3 items-center mt-2 group">
-                      <code className="text-xs text-white/50 font-mono">openclaw gateway run --port 18789</code>
-                      <button onClick={() => copyFix('openclaw gateway run --port 18789')}><Copy size={12} className="text-white/40 group-hover:text-white" /></button>
+                    <div className="bg-black/40 p-2 rounded border border-white/5 flex flex-col gap-2 mt-2 group">
+                      <div className="flex gap-3 items-center">
+                        <code className="text-xs text-white/50 font-mono">openclaw gateway run --port 18789</code>
+                        <button onClick={() => copyFix('openclaw gateway run --port 18789')}><Copy size={12} className="text-white/40 group-hover:text-white" /></button>
+                      </div>
+                      <p className="text-[10px] text-amber-500/80 uppercase tracking-widest font-semibold">Run this inside WSL and keep that terminal open.</p>
                     </div>
                   )}
                 </div>

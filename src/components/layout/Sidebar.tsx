@@ -35,35 +35,43 @@ export const Sidebar = ({ activeTab, setActiveTab }: { activeTab: string, setAct
       </div>
 
       {/* Nav */}
-      <div className="flex flex-col gap-6 w-full">
-        {navItems.map((item, index) => {
-          const Icon = item.icon;
-          const isActive = item.id === activeTab;
-          return (
-            <div key={index} className="relative group w-full flex justify-center">
-              {isActive && (
-                <motion.div 
-                  layoutId="activeTab"
-                  className="absolute left-0 w-1 h-8 bg-primary rounded-r-full shadow-[0_0_10px_#22D3EE]"
-                />
-              )}
-              <button 
-                onClick={() => setActiveTab(item.id)}
-                className={cn(
-                  "flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all duration-300",
-                  isActive ? "text-primary" : "text-white/40 hover:text-white/80 hover:bg-white/5"
+      <div className="flex-1 overflow-y-auto overflow-x-hidden w-full no-scrollbar my-4 py-2">
+        <div className="flex flex-col gap-6 w-full">
+          {navItems.map((item, index) => {
+            const Icon = item.icon;
+            const isActive = item.id === activeTab;
+            return (
+              <div key={index} className="relative group w-full flex justify-center">
+                {isActive && (
+                  <motion.div 
+                    layoutId="activeTab"
+                    className="absolute left-0 w-1 h-8 bg-primary rounded-r-full shadow-[0_0_10px_#22D3EE]"
+                  />
                 )}
-              >
-                <Icon size={22} className={isActive ? "drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : ""} />
-                <span className="text-[9px] font-display font-semibold tracking-widest">{item.label}</span>
-              </button>
-            </div>
-          );
-        })}
+                <button 
+                  onClick={() => setActiveTab(item.id)}
+                  className={cn(
+                    "flex flex-col items-center gap-1.5 p-3 rounded-2xl transition-all duration-300 w-20",
+                    isActive ? "text-primary" : "text-white/40 hover:text-white/80 hover:bg-white/5"
+                  )}
+                >
+                  <Icon size={22} className={isActive ? "drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]" : ""} />
+                  <span className="text-[9px] font-display font-semibold tracking-widest text-center">{item.label}</span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Settings */}
-      <button className="text-white/30 hover:text-white transition-colors p-3 rounded-2xl hover:bg-white/5">
+      <button 
+        onClick={() => setActiveTab('settings')}
+        className={cn(
+          "transition-colors p-3 rounded-2xl hover:bg-white/5 mt-auto",
+          activeTab === 'settings' ? "text-primary bg-white/5" : "text-white/30 hover:text-white"
+        )}
+      >
         <Settings size={22} />
       </button>
     </div>

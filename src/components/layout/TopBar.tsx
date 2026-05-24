@@ -1,21 +1,37 @@
 import { useState, useEffect } from 'react';
 import { Search, Activity, Clock, ShieldAlert, ShieldCheck } from 'lucide-react';
 import { useDemoMode } from '../../hooks/useDemoMode';
+import { CommandPalette } from '../ui/CommandPalette';
 
 export const TopBar = () => {
   const [time, setTime] = useState(new Date());
   const { isDemoMode, toggleDemoMode } = useDemoMode();
+  const [cmdOpen, setCmdOpen] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setCmdOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   return (
     <div className="w-full h-20 px-8 flex items-center justify-between border-b border-white/5">
       
       {/* Command Palette Search */}
-      <button className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl px-4 py-2 text-sm text-white/50 transition-colors w-64 backdrop-blur-md group">
+      <button 
+        onClick={() => setCmdOpen(true)}
+        className="flex items-center gap-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl px-4 py-2 text-sm text-white/50 transition-colors w-64 backdrop-blur-md group"
+      >
         <Search size={16} className="text-white/30 group-hover:text-primary transition-colors" />
         <span>Command...</span>
         <div className="ml-auto flex gap-1">
@@ -23,6 +39,8 @@ export const TopBar = () => {
           <kbd className="bg-white/10 px-1.5 rounded text-xs">K</kbd>
         </div>
       </button>
+
+      <CommandPalette isOpen={cmdOpen} onClose={() => setCmdOpen(false)} />
 
       {/* Center - System Mode */}
       <div className="flex items-center gap-4">

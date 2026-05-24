@@ -25,6 +25,8 @@ export const CheckIn = () => {
   const [reflection, setReflection] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [refreshTrigger, setRefreshTrigger] = useState(0);
+  const [toast, setToast] = useState<{msg: string, type: 'success'|'error'} | null>(null);
+  const [savedAt, setSavedAt] = useState<Date | null>(null);
 
   const [plan, setPlan] = useState<any>(null);
 
@@ -70,12 +72,27 @@ export const CheckIn = () => {
     setRefreshTrigger(p => p + 1);
   };
 
+  const showToast = (msg: string, type: 'success' | 'error') => {
+    setToast({ msg, type });
+    setTimeout(() => setToast(null), 3000);
+  };
+
   const handleReflectionSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!reflection.energyLevel && !reflection.focusQuality && !reflection.sleepQuality && !reflection.sorenessLevel && !reflection.skinStatus && !reflection.mood && !reflection.biggestWin && !reflection.mainBlocker && !reflection.tomorrowAdjustment) {
+      showToast('Reflection is empty. Please fill out at least one field.', 'error');
+      return;
+    }
     setIsSubmitting(true);
-    await api.submitReflection(reflection);
+    const res = await api.submitReflection(reflection);
     setIsSubmitting(false);
-    setRefreshTrigger(p => p + 1);
+    if (res.ok) {
+      setSavedAt(new Date());
+      showToast('Reflection saved successfully.', 'success');
+      setRefreshTrigger(p => p + 1);
+    } else {
+      showToast('Failed to save reflection.', 'error');
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -94,7 +111,14 @@ export const CheckIn = () => {
   const missedCount = checkins.filter(c => c.status === 'missed').length;
 
   return (
-    <div className="flex-1 p-8 overflow-y-auto bg-[#09090b] text-gray-100 min-h-screen">
+    <div className="flex-1 p-8 overflow-y-auto bg-[#09090b] text-gray-100 min-h-screen relative">
+      {toast && (
+        <div className={`absolute top-4 right-8 px-4 py-2 rounded-lg shadow-lg font-medium text-sm flex items-center gap-2 z-50 ${toast.type === 'success' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
+          {toast.type === 'success' ? <CheckCircle className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+          {toast.msg}
+        </div>
+      )}
+
       <div className="max-w-6xl mx-auto space-y-12 pb-24">
         
         {/* Header */}
@@ -263,9 +287,12 @@ export const CheckIn = () => {
               </div>
             </div>
 
-            <button disabled={isSubmitting} type="submit" className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]">
-              Save Daily Reflection
-            </button>
+            <div className="flex items-center gap-4">
+              <button disabled={isSubmitting} type="submit" className="px-6 py-3 bg-indigo-500 hover:bg-indigo-600 text-white font-semibold rounded-xl transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]">
+                Save Daily Reflection
+              </button>
+              {savedAt && <span className="text-sm text-gray-500 font-medium">Saved at {savedAt.toLocaleTimeString()}</span>}
+            </div>
           </form>
         </div>
 

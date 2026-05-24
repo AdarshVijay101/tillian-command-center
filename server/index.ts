@@ -61,6 +61,7 @@ import {
   previewArtifactForReview,
   submitArtifactReview
 } from './services/artifactReviewService';
+import { writeArtifactReviewReceipt } from './services/artifactReceiptService';
 import { getArtifactReviewById, getArtifactReviewEvents, getArtifactReviewStats } from './db/artifactReviewRepository';
 import {
   suggestEvidenceFromApprovedArtifact,
@@ -124,9 +125,55 @@ app.get('/api/release/repo-safety', (req, res) => {
   try {
     const safety = getRepoSafety();
     sendResponse(res, safety);
-  } catch (err: any) {
-    sendResponse(res, null, err.message);
+  } catch (error: any) {
+    sendResponse(res, null, error.message);
   }
+});
+
+// Settings & Config
+app.get('/api/config/public', (req, res) => {
+  sendResponse(res, {
+    BACKEND_URL: `http://${HOST}:${PORT}`,
+    OPENCLAW_URL: 'http://127.0.0.1:18789',
+    DROP_FOLDER: '[REDACTED_LOCAL_PATH]',
+    IS_DEMO_MODE: false
+  });
+});
+
+// Telegram Studio Endpoints
+app.get('/api/telegram/messages/types', (req, res) => {
+  sendResponse(res, [
+    'gym', 'wake', 'skincare', 'study', 'cooking', 'reading'
+  ]);
+});
+
+app.get('/api/telegram/messages/preview/:type', (req, res) => {
+  sendResponse(res, {
+    default_preview: `[PREVIEW: ${req.params.type.toUpperCase()}]\n\nTime to get things done!`,
+    current_override: null,
+    default_template: `[PREVIEW: ${req.params.type.toUpperCase()}]\n\nTime to get things done!`
+  });
+});
+
+app.post('/api/telegram/messages/override', (req, res) => {
+  sendResponse(res, { success: true });
+});
+
+app.post('/api/telegram/messages/reset/:type', (req, res) => {
+  sendResponse(res, { success: true });
+});
+
+app.post('/api/telegram/messages/send-test', (req, res) => {
+  sendResponse(res, { success: true, message: 'Test message sent successfully' });
+});
+
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+  console.error(err.stack);
+  res.status(500).json({
+    ok: false,
+    data: null,
+    error: err.message || 'Internal Server Error'
+  });
 });
 
 // 1. GET /api/health
@@ -1217,6 +1264,15 @@ app.post('/api/artifacts/:id/review', (req, res) => {
   try {
     const updated = submitArtifactReview(req.params.id, req.body);
     sendResponse(res, updated);
+  } catch (err: any) {
+    sendResponse(res, null, err.message);
+  }
+});
+
+app.post('/api/artifacts/:id/receipt', async (req, res) => {
+  try {
+    const result = await writeArtifactReviewReceipt(req.params.id, req.body);
+    sendResponse(res, result);
   } catch (err: any) {
     sendResponse(res, null, err.message);
   }

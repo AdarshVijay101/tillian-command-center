@@ -552,6 +552,35 @@ async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<Api
         } as any;
       }
 
+      // Mock Telegram Studio
+      if (endpoint.startsWith('/telegram/messages/types')) {
+        return { ok: true, data: ['daily_planner', 'morning_brief', 'evening_reflection'] } as any;
+      }
+      if (endpoint.startsWith('/telegram/messages/preview/')) {
+        const t = endpoint.split('/').pop() || 'unknown';
+        return {
+          ok: true,
+          data: {
+            default_template: `Mock template for ${t}`,
+            current_override: null,
+            default_preview: `[DEMO] This is a simulated payload for ${t}.\nTime: ${new Date().toLocaleTimeString()}`
+          }
+        } as any;
+      }
+      if (endpoint.startsWith('/telegram/messages/override') || endpoint.startsWith('/telegram/messages/reset/') || endpoint.startsWith('/telegram/messages/send-test')) {
+        return { ok: true, data: { success: true, simulated: true } } as any;
+      }
+      if (endpoint.startsWith('/config/public')) {
+        return {
+          ok: true,
+          data: {
+            BACKEND_URL: 'http://127.0.0.1:8787',
+            OPENCLAW_URL: 'http://127.0.0.1:18789',
+            DROP_FOLDER: '[REDACTED_LOCAL_PATH]'
+          }
+        } as any;
+      }
+
       if (isRoutine) {
         return {
           ok: true,
@@ -634,6 +663,12 @@ async function fetchApi<T>(endpoint: string, options?: RequestInit): Promise<Api
           return {
             ok: true,
             data: { success: true, status: 'simulated_update' }
+          } as any;
+        }
+        if (endpoint.endsWith('/receipt') && isPost) {
+          return {
+            ok: true,
+            data: { success: true, receiptFileName: 'mock_receipt.md' }
           } as any;
         }
         if (endpoint.match(/^\/artifacts\/[a-zA-Z0-9-]+$/)) {
@@ -837,10 +872,16 @@ export const api = {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   }),
+  writeArtifactReviewReceipt: (id: string, payload: { reviewStatus: string, rating?: number, reviewNotes?: string, decisionReason?: string }) => fetchApi(`/artifacts/${id}/receipt`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  }),
 
   // Phase 16
   getEvidenceStats: () => fetchApi('/evidence/stats'),
-  getDemoReadyEvidence: () => fetchApi('/evidence/demo-ready'),
+  getApprovedEvidence: () => fetchApi('/artifacts/review-inbox?status=approved'),
+  getDemoReadyEvidence: () => fetchApi('/artifacts/review-inbox?status=demo_ready'),
   getEvidenceNotes: () => fetchApi('/evidence/notes'),
   suggestEvidenceNote: (reviewId: string) => fetchApi(`/evidence/suggest/${reviewId}`, { method: 'POST' }),
   saveEvidenceNote: (payload: any) => fetchApi('/evidence/notes', {
@@ -865,5 +906,21 @@ export const api = {
   // Phase 17
   getReleaseReadiness: () => fetchApi('/release/readiness'),
   getReleaseChecklist: () => fetchApi('/release/checklist'),
-  getRepoSafety: () => fetchApi('/release/repo-safety')
+  getRepoSafety: () => fetchApi('/release/repo-safety'),
+
+  // Telegram Studio
+  getTelegramMessageTypes: () => fetchApi('/telegram/messages/types'),
+  getTelegramMessagePreview: (type: string) => fetchApi(`/telegram/messages/preview/${type}`),
+  saveTelegramMessageOverride: (type: string, overrideText: string) => fetchApi('/telegram/messages/override', {
+    method: 'POST',
+    body: JSON.stringify({ reminder_type: type, message_template: overrideText })
+  }),
+  resetTelegramMessageOverride: (type: string) => fetchApi(`/telegram/messages/reset/${type}`, { method: 'POST' }),
+  sendTelegramTestMessage: (type: string, overrideText: string) => fetchApi('/telegram/messages/send-test', {
+    method: 'POST',
+    body: JSON.stringify({ reminder_type: type, message_template: overrideText })
+  }),
+
+  // Config
+  getConfig: () => fetchApi('/config/public')
 };

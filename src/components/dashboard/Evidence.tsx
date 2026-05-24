@@ -5,6 +5,7 @@ import { api } from '../../services/api';
 const Evidence: React.FC = () => {
   const [stats, setStats] = useState<any>(null);
   const [demoReady, setDemoReady] = useState<any[]>([]);
+  const [approved, setApproved] = useState<any[]>([]);
   const [notes, setNotes] = useState<any[]>([]);
   const [packages, setPackages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,9 +21,10 @@ const Evidence: React.FC = () => {
   const loadData = async () => {
     try {
       setLoading(true);
-      const [statsRes, demoRes, notesRes, pkgRes] = await Promise.all([
+      const [statsRes, demoRes, approvedRes, notesRes, pkgRes] = await Promise.all([
         api.getEvidenceStats(),
         api.getDemoReadyEvidence(),
+        api.getApprovedEvidence(),
         api.getEvidenceNotes(),
         api.getEvidencePackages()
       ]);
@@ -31,6 +33,7 @@ const Evidence: React.FC = () => {
 
       setStats(statsRes.data);
       setDemoReady((demoRes.data as any[]) || []);
+      setApproved((approvedRes.data as any[]) || []);
       setNotes((notesRes.data as any[]) || []);
       setPackages((pkgRes.data as any[]) || []);
     } catch (err: any) {
@@ -154,13 +157,42 @@ const Evidence: React.FC = () => {
         {/* Left Column: Notes & Demo Ready */}
         <div className="space-y-8">
           <div className="bg-[#1C1C1E] border border-white/5 rounded-lg overflow-hidden">
-            <div className="px-6 py-4 border-b border-white/5 flex justify-between items-center">
+            <div className="px-6 py-4 border-b border-white/5 flex flex-col gap-2">
               <h2 className="text-lg font-medium text-white flex items-center">
                 <CheckCircle className="text-green-500 mr-2" size={18} />
-                Demo Ready Artifacts
+                Artifact Status Layer
               </h2>
+              <div className="text-xs text-gray-400 bg-white/5 p-2 rounded">
+                <strong>Approved</strong> artifacts are private and kept for internal memory.<br/>
+                <strong>Demo Ready</strong> artifacts are sanitized and available to be packaged into public portfolios.
+              </div>
             </div>
+            
             <div className="p-0">
+              {approved.length > 0 && (
+                <div className="bg-white/5 px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">Approved (Internal Only)</div>
+              )}
+              <ul className="divide-y divide-white/5">
+                {approved.map(art => (
+                  <li key={art.id} className="p-4 flex justify-between items-center hover:bg-white/5 transition-colors">
+                    <div>
+                      <div className="text-white font-medium">{art.file_name || art.title}</div>
+                      <div className="text-xs text-gray-500 mt-1">{art.artifact_type || 'Unknown'} &bull; {new Date(art.created_at).toLocaleString()}</div>
+                    </div>
+                    <button 
+                      onClick={async () => {
+                        await api.submitArtifactReview(art.id, { reviewStatus: 'demo_ready' });
+                        loadData();
+                      }}
+                      className="px-3 py-1.5 bg-green-600/20 hover:bg-green-600/40 text-green-400 rounded text-xs transition-colors"
+                    >
+                      Promote to Demo Ready
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="bg-white/5 px-4 py-2 text-xs font-medium text-gray-400 uppercase tracking-wider">Demo Ready (Public Safe)</div>
               {demoReady.length === 0 ? (
                 <div className="p-6 text-center text-gray-500">No demo ready artifacts found.</div>
               ) : (
@@ -168,8 +200,8 @@ const Evidence: React.FC = () => {
                   {demoReady.map(art => (
                     <li key={art.id} className="p-4 flex justify-between items-center hover:bg-white/5 transition-colors">
                       <div>
-                        <div className="text-white font-medium">{art.file_name}</div>
-                        <div className="text-xs text-gray-500 mt-1">{art.artifact_type} &bull; {new Date(art.created_at).toLocaleString()}</div>
+                        <div className="text-white font-medium">{art.file_name || art.title}</div>
+                        <div className="text-xs text-gray-500 mt-1">{art.artifact_type || 'Unknown'} &bull; {new Date(art.created_at).toLocaleString()}</div>
                       </div>
                     </li>
                   ))}

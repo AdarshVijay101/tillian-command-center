@@ -18,6 +18,12 @@ export const ReviewInbox = () => {
   const [refreshKey, setRefreshKey] = useState(0);
   const [events, setEvents] = useState<any[]>([]);
   const [evidenceSuggestion, setEvidenceSuggestion] = useState<any | null>(null);
+  const [toast, setToast] = useState<{msg: string, type: 'success'|'error'} | null>(null);
+
+  const showToast = (msg: string, type: 'success' | 'error') => {
+    setToast({ msg, type });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   const isDemo = getIsDemoMode();
 
@@ -88,10 +94,10 @@ export const ReviewInbox = () => {
       if (res.ok) {
         setEvidenceSuggestion(res.data);
       } else {
-        alert(res.error || 'Failed to suggest evidence');
+        showToast(res.error || 'Failed to suggest evidence', 'error');
       }
     } catch (err: any) {
-      alert(err.message);
+      showToast(err.message, 'error');
     }
   };
 
@@ -101,12 +107,47 @@ export const ReviewInbox = () => {
       const res = await api.saveEvidenceNote(evidenceSuggestion);
       if (res.ok) {
         setEvidenceSuggestion(null);
-        alert('Evidence Note Saved Successfully');
+        showToast('Evidence Note Saved Successfully', 'success');
       } else {
-        alert(res.error || 'Failed to save evidence note');
+        showToast(res.error || 'Failed to save evidence note', 'error');
       }
     } catch (err: any) {
-      alert(err.message);
+      showToast(err.message, 'error');
+    }
+  };
+
+  const handleCopyNotes = () => {
+    navigator.clipboard.writeText(reviewNotes);
+    showToast('Review notes copied to clipboard', 'success');
+  };
+
+  const handleCreateRevisionJob = async () => {
+    if (!selectedArtifact) return;
+    const res = await api.createJob({
+      title: `Revise ${selectedArtifact.file_name}`,
+      jobType: 'run_revision',
+      options: { artifact_id: selectedArtifact.id, notes: reviewNotes }
+    });
+    if (res.ok) {
+      showToast('Revision job created successfully', 'success');
+    } else {
+      showToast('Failed to create revision job', 'error');
+    }
+  };
+
+  const handleWriteReceipt = async () => {
+    if (!selectedArtifact) return;
+    const payload = {
+      reviewStatus: selectedArtifact.review_status,
+      rating: reviewRating || undefined,
+      reviewNotes: reviewNotes || undefined,
+      decisionReason: decisionReason || undefined
+    };
+    const res = await api.writeArtifactReviewReceipt(selectedArtifact.id, payload);
+    if (res.ok) {
+      showToast(`Receipt written as ${(res.data as any).receiptFileName}`, 'success');
+    } else {
+      showToast(res.error || 'Failed to write receipt', 'error');
     }
   };
 
@@ -121,7 +162,13 @@ export const ReviewInbox = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {toast && (
+        <div className={`absolute top-0 right-0 px-4 py-2 rounded-lg shadow-lg font-medium text-sm flex items-center gap-2 z-50 ${toast.type === 'success' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}`}>
+          {toast.type === 'success' ? <CheckCircle className="w-4 h-4" /> : <AlertTriangle className="w-4 h-4" />}
+          {toast.msg}
+        </div>
+      )}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-white flex items-center gap-2">
@@ -257,7 +304,10 @@ export const ReviewInbox = () => {
                 </div>
 
                 <div className="col-span-2 lg:col-span-1 flex flex-col">
-                  <h4 className="text-sm font-medium text-slate-300 mb-2">Review Decision Panel</h4>
+                  <div className="flex justify-between items-center mb-2">
+                    <h4 className="text-sm font-medium text-slate-300">Review Decision Panel</h4>
+                    <p className="text-[10px] text-indigo-400/80 uppercase tracking-widest font-semibold border border-indigo-500/20 px-2 py-0.5 rounded bg-indigo-500/10">Updates metadata only. Does not modify Obsidian.</p>
+                  </div>
                   <div className="space-y-4 flex-1">
                     <div>
                       <label className="block text-xs font-medium text-slate-400 mb-1">Rating (1-5)</label>
@@ -285,7 +335,10 @@ export const ReviewInbox = () => {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-slate-400 mb-1">Review Notes</label>
+                      <div className="flex justify-between items-center mb-1">
+                        <label className="block text-xs font-medium text-slate-400">Review Notes</label>
+                        <button onClick={handleCopyNotes} className="text-[10px] text-slate-400 hover:text-slate-200">Copy Notes</button>
+                      </div>
                       <textarea 
                         value={reviewNotes}
                         onChange={e => setReviewNotes(e.target.value)}
@@ -319,6 +372,21 @@ export const ReviewInbox = () => {
                       className="flex items-center justify-center gap-2 py-2 bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 rounded-lg text-sm font-medium transition-colors"
                     >
                       <XCircle className="w-4 h-4" /> Reject
+                    </button>
+                  </div>
+
+                  <div className="mt-2 grid grid-cols-2 gap-2">
+                    <button 
+                      onClick={handleCreateRevisionJob}
+                      className="flex items-center justify-center gap-2 py-1.5 bg-slate-700/50 hover:bg-slate-700 text-slate-300 rounded text-xs font-medium transition-colors"
+                    >
+                      Create Revision Job
+                    </button>
+                    <button 
+                      onClick={handleWriteReceipt}
+                      className="flex items-center justify-center gap-2 py-1.5 bg-slate-700/50 hover:bg-slate-700 text-slate-300 rounded text-xs font-medium transition-colors"
+                    >
+                      Write Receipt to Drop
                     </button>
                   </div>
                 </div>

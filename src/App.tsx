@@ -25,11 +25,25 @@ import { useAgentActions } from './hooks/useAgentActions';
 import { motion } from 'framer-motion';
 import { Code, Dumbbell, Sparkles, BookOpen } from 'lucide-react';
 import { api } from './services/api';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Settings from './components/dashboard/Settings';
+import { TelegramStudio } from './components/dashboard/TelegramStudio';
+import { AssistantHomePanel } from './components/dashboard/AssistantHomePanel';
 
 function App() {
   const { actionState, drawerOpen, currentActionName, startTime, confirmLaunch, cancelLaunch, execute, openRun, closeDrawer } = useAgentActions();
   const [activeTab, setActiveTab] = useState('dashboard');
+  
+  useEffect(() => {
+    const handleNavigate = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail) {
+        setActiveTab(customEvent.detail);
+      }
+    };
+    window.addEventListener('navigate', handleNavigate);
+    return () => window.removeEventListener('navigate', handleNavigate);
+  }, []);
   
   return (
     <div className="flex h-screen w-screen overflow-hidden">
@@ -84,6 +98,10 @@ function App() {
               </motion.div>
             ) : activeTab === 'setup' ? (
               <SetupGuide onRunAction={(name, apiCall) => execute(name, apiCall)} />
+            ) : activeTab === 'settings' ? (
+              <Settings />
+            ) : activeTab === 'telegram-studio' ? (
+              <TelegramStudio />
             ) : (
               <>
                 {/* Hero Section */}
@@ -96,6 +114,11 @@ function App() {
                 onNavigateToMissionControl={() => setActiveTab('mission-control')} 
                 onGoToCheckIn={() => setActiveTab('checkin')}
               />
+                
+                {/* Assistant Home Panel */}
+                <AssistantHomePanel />
+                
+                {/* Protocol Quick-Launch row */}
             </motion.div>
 
             {/* Mid Section Grid */}
